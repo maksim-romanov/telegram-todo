@@ -1,1 +1,2 @@
+*.lockb binary diff=lockb
 .env* filter=git-crypt diff=git-crypt
