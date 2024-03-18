@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
-      "db": [
-        "./db/index",
-        "./db/*"
-      ]
+      "db": ["./db/index", "./db/*"]
     }
   }
 }
