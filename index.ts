@@ -7,7 +7,7 @@ if (!BOT_TOKEN) throw new Error("BOT_TOKEN not found");
 const bot = new Telegraf(BOT_TOKEN);
 
 bot.command("todo", async (ctx) => {
-  let taskMsg = ctx.message.text.replace(/\/todo/g, "").trim();
+  const taskMsg = ctx.message.text.replace(/\/todo/g, "").trim();
 
   if (!taskMsg) {
     await ctx.deleteMessage();
@@ -18,7 +18,7 @@ bot.command("todo", async (ctx) => {
 
   const inlineKeyboard = [[{ text: "Done ✅", callback_data: "done-0" }]];
 
-  ctx.reply(`ок, записал`, {
+  ctx.reply("ок, записал", {
     disable_notification: true,
     reply_parameters: {
       message_id: ctx.message.message_id,
@@ -38,7 +38,7 @@ bot.on(message("text"), async (ctx) => {
 
   const inlineKeyboard = [[{ text: "Done ✅", callback_data: "done-0" }]];
 
-  ctx.reply(`ок, записал`, {
+  ctx.reply("ок, записал", {
     disable_notification: true,
     reply_parameters: {
       message_id: ctx.message.message_id,
@@ -50,13 +50,13 @@ bot.on(message("text"), async (ctx) => {
 });
 
 bot.action("done-0", async (ctx) => {
-  const newKeyboard = [[{ text: "Undone 🔄", callback_data: `undone-0` }]];
+  const newKeyboard = [[{ text: "Undone 🔄", callback_data: "undone-0" }]];
 
   const targetMessage = ctx.update.callback_query.message;
   if (!targetMessage) throw new Error("not found reply message");
 
   if ("text" in targetMessage) {
-    const newMessageText = `<s>сделано</s>`;
+    const newMessageText = "<s>сделано</s>";
 
     await ctx.editMessageText(newMessageText, {
       parse_mode: "HTML",
