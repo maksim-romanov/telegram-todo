@@ -1,10 +1,9 @@
 import { db, schema } from "db";
 import { eq } from "drizzle-orm";
 
-const result = await db
+const [neo] = await db
   .select()
-  .from(schema.todos)
-  .where(eq(schema.todos.userId, 1))
-  .all();
+  .from(schema.users)
+  .where(eq(schema.users.id, 1));
 
-console.log(result);
+console.log("result: ", neo);

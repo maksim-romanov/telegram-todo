@@ -1,3 +1,5 @@
+import { db, schema } from "db";
+import { eq } from "drizzle-orm";
 import { Telegraf } from "telegraf";
 import { message } from "telegraf/filters";
 
@@ -32,6 +34,24 @@ bot.command("todo", async (ctx) => {
 bot.on(message("text"), async (ctx) => {
   const messageText = ctx.message.text;
   const msg = messageText.toLowerCase();
+
+  if (msg.startsWith("тук-тук")) {
+    const [, testVal] = msg.split(" ");
+    await db
+      .update(schema.users)
+      .set({ name: testVal })
+      .where(eq(schema.users.id, 1))
+      .returning({ updatedId: schema.users.id });
+
+    const [neo] = await db
+      .select()
+      .from(schema.users)
+      .where(eq(schema.users.id, 1));
+
+    ctx.reply(neo?.name || "unknown");
+
+    return;
+  }
 
   if (!msg.startsWith("степа") && !msg.startsWith("напомни")) return;
   if (msg.split(" ").length <= 1) return;

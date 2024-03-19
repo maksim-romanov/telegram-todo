@@ -177,3 +177,5 @@ dist
 .vscode
 
 *.db
+
+build
