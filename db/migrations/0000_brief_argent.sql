@@ -1,4 +1,5 @@
 CREATE TABLE `users` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`name` text NOT NULL
+	`name` text NOT NULL,
+	`timestamp` text DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
